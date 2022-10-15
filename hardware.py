@@ -8,6 +8,13 @@ import board
 import digitalio
 from PIL import Image
 import adafruit_ssd1306
+from twilio.rest import Client
+
+
+sid = "SID"
+token = "TOKEN"
+
+client = Client(sid, token)
 
 pygame.mixer.init()
 # Define the Reset Pin
@@ -97,6 +104,14 @@ def playSound(soundIndex):
 		print("Loading audio file")
 		pygame.mixer.music.load(soundsDict2[soundIndex])
 		print("Loaded")
+		if imagesDict2[soundIndex] == "./images/help.png":
+			message = client.messages \
+                .create(
+                     body="This person is likely having an emergency, and requires immediate help.",
+                     from_='+FROM',
+                     to='+TO'
+                 )	 
+			print(message.sid)
 
 	pygame.mixer.music.play()
 	while pygame.mixer.music.get_busy():
