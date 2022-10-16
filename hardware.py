@@ -89,6 +89,7 @@ def playSound(soundIndex):
 	if selector1.is_pressed:
 		print("Selector1")
 		image = Image.open(imagesDict1[soundIndex]).convert('1')
+		image = image.rotate(180, PIL.Image.NEAREST, expand = 1)
 		# Display image
 		oled.image(image)
 		oled.show()
